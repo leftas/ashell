@@ -8,6 +8,7 @@ use iced::{
     widget::{container, mouse_area, text, Row},
     Border, Color, Element, Length, Theme,
 };
+use log::{info};
 use std::cell::RefCell;
 
 #[derive(Debug, Clone)]
@@ -31,6 +32,7 @@ fn get_workspaces() -> Vec<Workspace> {
     let mut current: usize = 1;
     let s = workspaces
         .iter()
+        .filter(|w| w.id > 0)
         .flat_map(|w| {
             let missing: usize = w.id as usize - current;
             let mut res = Vec::with_capacity(missing + 1);
