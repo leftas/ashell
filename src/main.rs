@@ -13,6 +13,7 @@ use iced::{
     Application, Font, Settings,
 };
 use log::{error, LevelFilter};
+use std::backtrace::Backtrace;
 use std::panic;
 
 mod app;
@@ -58,7 +59,8 @@ async fn main() {
     .start()
     .unwrap();
     panic::set_hook(Box::new(|info| {
-        error!("Panic: {}", info);
+        let b = Backtrace::capture();
+        error!("Panic: {} \n {}", info, b);
     }));
     let config = read_config().unwrap_or_else(|err| {
         panic!("Failed to parse config file: {}", err);
