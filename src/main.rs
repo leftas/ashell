@@ -10,8 +10,9 @@ use iced_sctk::{
     multi_window::{settings::Settings, Application},
     settings::InitialSurface,
 };
-use log::error;
-use std::{backtrace::Backtrace, borrow::Cow, panic};
+use log::{error, LevelFilter};
+use std::{borrow::Cow, panic};
+use std::backtrace::Backtrace;
 
 mod app;
 mod centerbox;
