@@ -11,8 +11,8 @@ use iced_sctk::{
     settings::InitialSurface,
 };
 use log::{error, LevelFilter};
-use std::{borrow::Cow, panic};
 use std::backtrace::Backtrace;
+use std::{borrow::Cow, panic};
 
 mod app;
 mod centerbox;
