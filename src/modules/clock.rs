@@ -1,4 +1,4 @@
-use crate::style::left_header_pills;
+use crate::style::header_pills;
 use chrono::{DateTime, Local};
 use iced::{
     time::every,
@@ -34,7 +34,7 @@ impl Clock {
     pub fn view(&self, format: &str) -> Element<Message> {
         container(text(self.date.format(format).to_string()))
             .padding([2, 8])
-            .style(left_header_pills)
+            .style(header_pills)
             .into()
     }
 

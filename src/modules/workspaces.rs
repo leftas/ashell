@@ -1,6 +1,6 @@
 use crate::{
     config::AppearanceColor,
-    style::{header_pills, WorkspaceButtonStyle},
+    style::{left_header_pills, WorkspaceButtonStyle},
 };
 use hyprland::{
     dispatch::MonitorIdentifier,
@@ -219,7 +219,7 @@ impl Workspaces {
         .padding([4, 8])
         .align_y(alignment::Vertical::Center)
         .height(Length::Shrink)
-        .style(header_pills)
+        .style(left_header_pills)
         .into()
     }
 

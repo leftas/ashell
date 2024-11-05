@@ -489,7 +489,7 @@ impl Settings {
                 )
                 .spacing(8),
         )
-        .style(Button::custom(HeaderButtonStyle::Right))
+        .style(Button::custom(HeaderButtonStyle::Full))
         .padding([2, 8])
         .on_press(Message::ToggleMenu)
         .into()

@@ -1,4 +1,4 @@
-use crate::style::header_pills;
+use crate::style::right_header_pills;
 use hyprland::{data::Client, event_listener::AsyncEventListener, shared::HyprDataActiveOptional};
 use iced::{
     subscription::channel,
@@ -51,12 +51,15 @@ impl Title {
     }
 
     pub fn view(&self) -> Option<Element<Message>> {
-        self.value.as_ref().map(|value| {
-            container(text(value).size(12))
-                .padding([2, 7])
-                .style(header_pills)
-                .into()
-        })
+        self.value
+            .as_ref()
+            .or(Some("".to_string()).as_ref())
+            .map(|value| {
+                container(text(value).size(12))
+                    .padding([4, 8])
+                    .style(right_header_pills)
+                    .into()
+            })
     }
 
     pub fn subscription(&self) -> Subscription<Message> {

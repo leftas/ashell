@@ -4,6 +4,7 @@ use crate::{
         privacy::{PrivacyData, PrivacyService},
         ServiceEvent,
     },
+    style::header_pills,
 };
 use iced::{
     widget::{container, Row},
@@ -31,7 +32,7 @@ impl PrivacyData {
                 .style(|theme: &Theme| container::Appearance {
                     background: Some(theme.palette().background.into()),
                     text_color: Some(theme.extended_palette().danger.weak.color),
-                    ..Default::default()
+                    ..header_pills(theme)
                 })
                 .into(),
             )
