@@ -140,6 +140,20 @@ pub fn left_header_pills(theme: &Theme) -> container::Appearance {
     }
 }
 
+pub fn right_header_pills(theme: &Theme) -> container::Appearance {
+    let palette = theme.palette();
+    container::Appearance {
+        background: Some(palette.background.into()),
+        border: Border {
+            width: 0.0,
+            radius: [0.0, 12.0, 12.0, 0.0].into(),
+            color: Color::TRANSPARENT,
+        },
+        text_color: Some(palette.text),
+        ..Default::default()
+    }
+}
+
 pub enum HeaderButtonStyle {
     Full,
     Right,

@@ -192,16 +192,24 @@ impl Application for App {
                         .map(|_| self.updates.view().map(Message::Updates)),
                 )
                 .push(
-                    self.workspaces
-                        .view(&self.config.appearance.workspace_colors)
-                        .map(Message::Workspaces),
+                    Row::new()
+                        .push(
+                            self.workspaces
+                                .view(&self.config.appearance.workspace_colors)
+                                .map(Message::Workspaces),
+                        )
+                        .push_maybe(self.window_title.view().map(|v| v.map(Message::Title))),
                 )
                 .height(Length::Shrink)
                 .align_items(Alignment::Center)
                 .spacing(4);
 
             let center = Row::new()
-                .push_maybe(self.window_title.view().map(|v| v.map(Message::Title)))
+                .push(
+                    self.clock
+                        .view(&self.config.clock.format)
+                        .map(Message::Clock),
+                )
                 .spacing(4);
 
             let right = Row::new()
@@ -212,11 +220,6 @@ impl Application for App {
                 )
                 .push(
                     Row::new()
-                        .push(
-                            self.clock
-                                .view(&self.config.clock.format)
-                                .map(Message::Clock),
-                        )
                         .push_maybe(
                             self.privacy
                                 .as_ref()
