@@ -4,8 +4,9 @@ use crate::{
     get_log_spec,
     menu::{menu_wrapper, Menu, MenuPosition, MenuType},
     modules::{
-        self, clock::Clock, launcher, privacy::PrivacyMessage, settings::Settings,
-        system_info::SystemInfo, title::Title, updates::Updates, workspaces::Workspaces,
+        self, clock::Clock, language::Language, launcher, privacy::PrivacyMessage,
+        settings::Settings, system_info::SystemInfo, title::Title, updates::Updates,
+        workspaces::Workspaces,
     },
     services::{privacy::PrivacyService, ReadOnlyService, ServiceEvent},
     style::ashell_theme,
@@ -31,6 +32,7 @@ pub struct App {
     window_title: Title,
     system_info: SystemInfo,
     clock: Clock,
+    language: Language,
     privacy: Option<PrivacyService>,
     pub settings: Settings,
 }
@@ -48,6 +50,7 @@ pub enum Message {
     Clock(modules::clock::Message),
     Privacy(modules::privacy::PrivacyMessage),
     Settings(modules::settings::Message),
+    Language(modules::language::Message),
 }
 
 impl Application for App {
@@ -69,6 +72,7 @@ impl Application for App {
                 clock: Clock::default(),
                 privacy: None,
                 settings: Settings::default(),
+                language: Language::default(),
             },
             Command::none(),
         )
@@ -154,6 +158,10 @@ impl Application for App {
                 self.settings
                     .update(message, &self.config.settings, &mut self.menu)
             }
+            Message::Language(message) => {
+                self.language.update(message);
+                Command::none()
+            }
         }
     }
 
@@ -205,6 +213,7 @@ impl Application for App {
                 .spacing(4);
 
             let right = Row::new()
+                .push_maybe(self.language.view().map(|v| v.map(Message::Language)))
                 .push_maybe(
                     self.system_info
                         .view(&self.config.system)
@@ -254,6 +263,7 @@ impl Application for App {
                 ),
                 Some(self.settings.subscription().map(Message::Settings)),
                 Some(config::subscription()),
+                Some(self.language.subscription().map(Message::Language)),
             ]
             .into_iter()
             .flatten()

@@ -1,4 +1,5 @@
 pub mod clock;
+pub mod language;
 pub mod launcher;
 pub mod privacy;
 pub mod settings;
